@@ -23,7 +23,7 @@ const setting = {
     traffic: 3
 };
 
-function getQuantityElements(heightElement) {// получаем количество элементов взависимости от размера экрана
+function getQuantityElements(heightElement) {
     return document.documentElement.clientHeight / heightElement + 1;
 }
 
@@ -46,7 +46,7 @@ function startGame() {
         const enemy = document.createElement('div');
         enemy.classList.add('enemy');
         enemy.y = -100 * setting.traffic * (i + 1);
-        enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';// рандомное располложение противников по горизонтали Math.floor - округляет значение, Math.random - добаляет рандомное значени
+        enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
         enemy.style.top = enemy.y + 'px';
         enemy.style.background = 'transparent url(\'./image/enemy2.png\') center / cover no-repeat';
         gameArea.appendChild(enemy);
@@ -54,9 +54,9 @@ function startGame() {
     setting.score = 0;
     setting.start = true;
     gameArea.appendChild(car);
-    setting.x = car.offsetLeft;//добавляем свойство x для объекта setting и вызываем метод offsetLeft(содержит левое смещение элемента относительно offsetParent)
-    setting.y = car.offsetTop;// содержит верхнее смещение
-    requestAnimationFrame(playGame);// сообщаем о том, что playGame - будет анимированной, и просим запланировать перерисовку на следующем кадре анимации 
+    setting.x = car.offsetLeft;
+    setting.y = car.offsetTop;
+    requestAnimationFrame(playGame);
 }
 
 function playGame() {
@@ -66,25 +66,25 @@ function playGame() {
         moveRoad();
         moveEnemy();
         if (keys.ArrowLeft && setting.x > 0) {
-            setting.x -= setting.speed;// скорость перемещения автомобиля
+            setting.x -= setting.speed;
         }
 
         if (keys.ArrowRight && setting.x < (gameArea.offsetWidth - car.offsetWidth)) {
-            setting.x += setting.speed;// х будет увеличиваться
+            setting.x += setting.speed;
         }
 
         if (keys.ArrowUp && setting.y > 0) {
-            setting.y -= setting.speed;// чтобы двигался вверх
+            setting.y -= setting.speed;
         }
 
         if (keys.ArrowDown && setting.x < (gameArea.offsetHeight - car.offsetHeight)) {
-            setting.y += setting.speed;// чтобы двигался вниз
+            setting.y += setting.speed;
         }
 
-        car.style.left = setting.x + 'px';// стиль .car будут присваиваться значения setting.x
+        car.style.left = setting.x + 'px';
         car.style.top = setting.y + 'px';
 
-        requestAnimationFrame(playGame); // чтобы анимация была плавной и игра не останавлтвалась, фукция должна сама себя перезапускать 
+        requestAnimationFrame(playGame);
     }
 }
 
@@ -110,12 +110,11 @@ function moveRoad() {// анимируем лении
     });
 }
 
-function moveEnemy() {// анимируем противников
+function moveEnemy() {
     let enemy = document.querySelectorAll('.enemy');
     enemy.forEach(function(item) {
-        let carRect = car.getBoundingClientRect();// метод возвращает размеры и позицию 
-        //элемента в виде объекта для машины
-        let enemyRect = item.getBoundingClientRect();//для противников
+        let carRect = car.getBoundingClientRect();
+        let enemyRect = item.getBoundingClientRect();
 
         if (carRect.top <= enemyRect.bottom && carRect.right >= enemyRect.left && carRect.left <= enemyRect.right && carRect.bottom >= enemyRect.top) {
             setting.start = false;
@@ -124,7 +123,7 @@ function moveEnemy() {// анимируем противников
             score.style.top = start.offsetHeight;
         }
 
-        item.y += setting.speed / 2;// устанавливаем скорость противников
+        item.y += setting.speed / 2;
         item.style.top = item.y + 'px';
         if (item.y >= document.documentElement.clientHeight) {
             item.y = -100 * setting.traffic;
