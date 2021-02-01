@@ -88,13 +88,13 @@ function playGame() {
     }
 }
 
-function startRun(event) { // к event(объект события на странице) можно обращаться только внутри функции  
-    event.preventDefault(); // отключаем стандартное поведение браузера 
+function startRun(event) {  
+    event.preventDefault();
     keys[event.key] = true;
 }
 
 function stopRun(event) {
-    event.preventDefault(); // отключаем стандартное поведение браузера 
+    event.preventDefault();
     keys[event.key] = false;
 }
 
